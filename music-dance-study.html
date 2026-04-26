@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎵 Music & Dance — Survival Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c28;
+    --accent: #f0c040;
+    --accent2: #e05a8a;
+    --accent3: #4ab8f0;
+    --accent4: #7be08a;
+    --text: #f0eeea;
+    --muted: #7a7a90;
+    --border: #2a2a3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Space Mono', monospace; min-height: 100vh; overflow-x: hidden; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #13131a 0%, #1a1028 50%, #0f1a1a 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '🎵 🎶 🎸 🥁 🎹 🎺 🎻 💃 🕺';
+    position: absolute; top: 0; left: 0; right: 0;
+    font-size: 1.5rem; opacity: 0.07; letter-spacing: 1rem;
+    white-space: nowrap; animation: scroll-bg 20s linear infinite;
+  }
+  @keyframes scroll-bg { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: var(--accent); text-shadow: 0 0 30px rgba(240,192,64,0.4); }
+  header p { color: var(--muted); margin-top: 0.5rem; font-size: 0.85rem; }
+  .time-badge { display: inline-block; background: var(--accent2); color: white; padding: 0.3rem 1rem; border-radius: 2rem; font-size: 0.75rem; margin-top: 0.5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+  /* NAV */
+  nav { display: flex; gap: 0.5rem; padding: 1rem 2rem; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; justify-content: center; position: sticky; top: 0; z-index: 100; }
+  nav button { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 0.5rem 1.2rem; border-radius: 0.3rem; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.75rem; transition: all 0.2s; }
+  nav button:hover, nav button.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 700; }
+
+  /* SECTIONS */
+  .section { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* CHEAT SHEET */
+  .cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .cheat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cheat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .cheat-card.music::before { background: var(--accent); }
+  .cheat-card.phil::before { background: var(--accent2); }
+  .cheat-card.dance::before { background: var(--accent3); }
+  .cheat-card.orch::before { background: var(--accent4); }
+  .cheat-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .cheat-card.music h3 { color: var(--accent); }
+  .cheat-card.phil h3 { color: var(--accent2); }
+  .cheat-card.dance h3 { color: var(--accent3); }
+  .cheat-card.orch h3 { color: var(--accent4); }
+  .cheat-item { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; font-size: 0.78rem; line-height: 1.5; }
+  .cheat-item .key { color: var(--accent); font-weight: 700; min-width: 30px; }
+  .cheat-item .val { color: #ccc; }
+  .tag { display: inline-block; background: var(--surface2); border: 1px solid var(--border); padding: 0.15rem 0.5rem; border-radius: 0.2rem; font-size: 0.7rem; margin: 0.15rem; color: var(--text); }
+  .tag.y { border-color: var(--accent); color: var(--accent); }
+  .tag.p { border-color: var(--accent2); color: var(--accent2); }
+  .tag.b { border-color: var(--accent3); color: var(--accent3); }
+  .tag.g { border-color: var(--accent4); color: var(--accent4); }
+  .divider { height: 1px; background: var(--border); margin: 0.8rem 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3)); }
+  .tl-item { position: relative; margin-bottom: 1.5rem; }
+  .tl-dot { position: absolute; left: -1.75rem; top: 0.4rem; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+  .tl-year { font-size: 0.7rem; color: var(--accent); font-weight: 700; }
+  .tl-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin: 0.2rem 0; }
+  .tl-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* FLASHCARDS */
+  .fc-controls { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .fc-controls select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 0.5rem 1rem; border-radius: 0.3rem; font-family: 'Space Mono', monospace; font-size: 0.8rem; }
+  .fc-wrapper { perspective: 1000px; max-width: 600px; margin: 0 auto; }
+  .fc { width: 100%; height: 280px; position: relative; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+  .fc.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    background: var(--surface); border: 2px solid var(--border);
+    border-radius: 0.8rem; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 2rem; text-align: center;
+  }
+  .fc-back { transform: rotateY(180deg); border-color: var(--accent); }
+  .fc-front .q-label { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; }
+  .fc-front .q-text { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; }
+  .fc-back .a-label { font-size: 0.7rem; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; }
+  .fc-back .a-text { font-size: 0.95rem; color: var(--text); line-height: 1.6; }
+  .fc-nav { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; align-items: center; }
+  .btn { background: var(--accent); color: var(--bg); border: none; padding: 0.6rem 1.5rem; border-radius: 0.3rem; cursor: pointer; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; transition: opacity 0.2s; }
+  .btn:hover { opacity: 0.85; }
+  .btn.sec { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn.danger { background: var(--accent2); color: white; }
+  .fc-counter { font-size: 0.8rem; color: var(--muted); }
+
+  /* QUIZ */
+  .quiz-header { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .quiz-progress { flex: 1; height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; min-width: 150px; }
+  .quiz-progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.3s; border-radius: 4px; }
+  .quiz-score { font-size: 0.8rem; color: var(--muted); }
+  .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1rem; }
+  .q-num { font-size: 0.7rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .q-text { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.5; }
+  .q-options { display: grid; gap: 0.5rem; }
+  .q-opt { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 0.7rem 1rem; border-radius: 0.3rem; cursor: pointer; text-align: left; font-family: 'Space Mono', monospace; font-size: 0.8rem; transition: all 0.15s; }
+  .q-opt:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .q-opt.correct { background: rgba(123,224,138,0.1); border-color: var(--accent4); color: var(--accent4); }
+  .q-opt.wrong { background: rgba(224,90,138,0.1); border-color: var(--accent2); color: var(--accent2); }
+  .q-feedback { font-size: 0.78rem; margin-top: 0.7rem; padding: 0.5rem; border-radius: 0.3rem; }
+  .q-feedback.ok { background: rgba(123,224,138,0.08); color: var(--accent4); }
+  .q-feedback.no { background: rgba(224,90,138,0.08); color: var(--accent2); }
+  .quiz-result { text-align: center; padding: 3rem 1rem; }
+  .result-score { font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: var(--accent); }
+  .result-msg { font-size: 1.1rem; margin: 1rem 0 0.5rem; }
+  .result-sub { color: var(--muted); font-size: 0.8rem; }
+
+  /* MNEMONICS */
+  .mnem-card { background: var(--surface); border-left: 4px solid var(--accent); border-radius: 0 0.5rem 0.5rem 0; padding: 1rem 1.5rem; margin-bottom: 1rem; }
+  .mnem-card h4 { font-family: 'Syne', sans-serif; font-size: 0.9rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .mnem-card p { font-size: 0.8rem; color: #ccc; line-height: 1.6; }
+  .mnem-card .mnem-key { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--accent2); margin: 0.5rem 0; letter-spacing: 0.05em; }
+  .mnem-card .mnem-exp { font-size: 0.75rem; color: var(--muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) { nav { padding: 0.5rem; } nav button { font-size: 0.65rem; padding: 0.4rem 0.7rem; } .section { padding: 1rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎵 Music & Dance</h1>
+  <p>Week 78 Handout — 10-Hour Emergency Study Tool</p>
+  <div class="time-badge">⏰ 10-hour grind mode activated</div>
+</header>
+
+<nav>
+  <button class="active" onclick="show('cheatsheet', this)">📋 Cheat Sheet</button>
+  <button onclick="show('philippine', this)">🇵🇭 PH History</button>
+  <button onclick="show('flashcards', this)">🃏 Flashcards</button>
+  <button onclick="show('mnemonics', this)">🧠 Mnemonics</button>
+  <button onclick="show('quiz', this)">📝 Quiz (100 items)</button>
+</nav>
+
+<!-- ============================== CHEAT SHEET ============================== -->
+<div id="cheatsheet" class="section active">
+  <div class="cheat-grid">
+
+    <!-- Origin of Music -->
+    <div class="cheat-card music">
+      <h3>🎵 Origin of Music</h3>
+      <div class="cheat-item"><span class="key">40k</span><span class="val">Years ago — earliest musical instruments (archaeological evidence)</span></div>
+      <div class="cheat-item"><span class="key">🦴</span><span class="val">Perforated bear femur found in <strong>Slovenia, 1995</strong> — possible ancient flute</span></div>
+      <div class="cheat-item"><span class="key">📜</span><span class="val">Staff notation developed <strong>before 16th century</strong> → precise composition</span></div>
+      <div class="cheat-item"><span class="key">🏛</span><span class="val">Ancient Greece: music = education for mind & soul</span></div>
+      <div class="cheat-item"><span class="key">⛪</span><span class="val">Medieval: Gregorian chant + secular troubadours</span></div>
+      <div class="divider"></div>
+      <div style="font-size:0.72rem; color:var(--muted);">Darwin: music evolved like animal mating calls (attraction)</div>
+    </div>
+
+    <!-- Western Art Music -->
+    <div class="cheat-card music">
+      <h3>🎻 Western Art Music</h3>
+      <div class="cheat-item"><span class="key">🎼</span><span class="val"><strong>Symphony</strong> — full orchestra, multiple movements. Ex: Beethoven Symphony No. 5</span></div>
+      <div class="cheat-item"><span class="key">🎹</span><span class="val"><strong>Sonata</strong> — solo/small ensemble, 2–4 movements. Italian: "sonare" = to sound. Ex: Waldstein</span></div>
+      <div class="cheat-item"><span class="key">🎺</span><span class="val"><strong>Concerto</strong> — soloist + orchestra. Ex: Tchaikovsky Piano Concerto No. 1</span></div>
+      <div class="cheat-item"><span class="key">🎭</span><span class="val"><strong>Opera</strong> — music + singing + staging + dance. Originated Italy, end of 16th c.</span></div>
+      <div class="cheat-item"><span class="key">🩰</span><span class="val"><strong>Ballet</strong> — orchestral comp for dance. Ex: Swan Lake (Tchaikovsky)</span></div>
+      <div class="divider"></div>
+      <div style="font-size:0.72rem;color:var(--muted);">KEY DIFF: Symphony=full orch | Concerto=soloist+orch | Sonata=solo/small group</div>
+    </div>
+
+    <!-- Folk & Popular Music -->
+    <div class="cheat-card music">
+      <h3>🎸 Folk & Popular Music</h3>
+      <div style="font-size:0.72rem;color:var(--accent);margin-bottom:0.5rem;">FOLK — community-based, no named composer, passed down</div>
+      <span class="tag g">Ballads</span><span class="tag g">Work songs</span><span class="tag g">Epic songs</span><span class="tag g">Drumming</span><span class="tag g">Folk dance music</span>
+      <div class="divider"></div>
+      <div style="font-size:0.72rem;color:var(--accent2);margin-bottom:0.5rem;">POPULAR — commercial, rapid style changes, tied to composer</div>
+      <span class="tag p">Country</span><span class="tag p">Musicals</span><span class="tag p">Jazz</span><span class="tag p">R&B</span><span class="tag p">Rock</span><span class="tag p">Rap</span>
+      <div class="divider"></div>
+      <div class="cheat-item"><span class="key">🎷</span><span class="val">Jazz — New Orleans, early 20c, improvisation, African American roots</span></div>
+      <div class="cheat-item"><span class="key">🎤</span><span class="val">R&B — emerged 1940s, Black Americans, evolved to soul/funk/hip-hop</span></div>
+      <div class="cheat-item"><span class="key">🎸</span><span class="val">Rap — Bronx, New York, 1970s; part of hip-hop culture</span></div>
+    </div>
+
+    <!-- Orchestral Families -->
+    <div class="cheat-card orch">
+      <h3>🎺 The 4 Orchestra Families</h3>
+      <div class="cheat-item"><span class="key g">🎻</span><span class="val"><strong>Strings</strong> — adds HARMONY. Violin (smallest), Viola (warmer), Cello (bassist, sit). Pluck or bow.</span></div>
+      <div class="cheat-item"><span class="key g">🎵</span><span class="val"><strong>Woodwinds</strong> — adds COLOR. Air column vibration. Piccolo (highest, bird), Flute (no reed), Clarinet (single reed), Oboe (double, sad), Bassoon (double, lowest)</span></div>
+      <div class="cheat-item"><span class="key g">🎺</span><span class="val"><strong>Brass</strong> — adds POWER. Buzz lips, metal tubing. Longer = lower. Valves change tone.</span></div>
+      <div class="cheat-item"><span class="key g">🥁</span><span class="val"><strong>Percussion</strong> — adds RHYTHM. Struck. Skin/wood/metal. Timpani, snare, xylophone, cymbals</span></div>
+      <div class="divider"></div>
+      <div style="font-size:0.7rem;color:var(--accent4);">Memory: <strong>S-W-B-P</strong> → Strings-Woodwinds-Brass-Percussion → <strong>"Some Weird Band Plays"</strong></div>
+    </div>
+
+    <!-- Dance Definition & Elements -->
+    <div class="cheat-card dance">
+      <h3>💃 Dance — Core Elements</h3>
+      <div class="cheat-item"><span class="key b">1</span><span class="val"><strong>Body</strong> — basic component; internal emotions expressed outward</span></div>
+      <div class="cheat-item"><span class="key b">2</span><span class="val"><strong>Theme</strong> — the message of the dance</span></div>
+      <div class="cheat-item"><span class="key b">3</span><span class="val"><strong>Design</strong> — plan/organization of movement in time & space</span></div>
+      <div class="cheat-item"><span class="key b">4a</span><span class="val"><strong>Space</strong> — direction, levels, pathways, formations</span></div>
+      <div class="cheat-item"><span class="key b">4b</span><span class="val"><strong>Time</strong> — rhythm, tempo, duration</span></div>
+      <div class="cheat-item"><span class="key b">4c</span><span class="val"><strong>Force/Dynamics</strong> — strong, soft, sharp, flowing</span></div>
+      <div class="cheat-item"><span class="key b">5</span><span class="val"><strong>Technique</strong> — skill of executing movement</span></div>
+      <div class="cheat-item"><span class="key b">6</span><span class="val"><strong>Music</strong> — motivates movement</span></div>
+      <div class="cheat-item"><span class="key b">7</span><span class="val"><strong>Costume/Props</strong> — enhances; reflects culture</span></div>
+      <div class="cheat-item"><span class="key b">8</span><span class="val"><strong>Choreography</strong> — forms and arrangement</span></div>
+      <div class="cheat-item"><span class="key b">9</span><span class="val"><strong>Scenery</strong> — setting/background</span></div>
+    </div>
+
+    <!-- Dance Types -->
+    <div class="cheat-card dance">
+      <h3>🕺 Dance Types</h3>
+      <div class="cheat-item"><span class="key b">🩰</span><span class="val"><strong>Ballet</strong> — Italian Renaissance 15c, precise/graceful, en pointe, turned-out legs</span></div>
+      <div class="cheat-item"><span class="key b">💃</span><span class="val"><strong>Ballroom</strong> — French courts late 16c, partner dance (waltz, foxtrot, tango, cha-cha)</span></div>
+      <div class="cheat-item"><span class="key b">🌀</span><span class="val"><strong>Contemporary</strong> — mid-20c, fluid/improv, Martha Graham & Merce Cunningham</span></div>
+      <div class="cheat-item"><span class="key b">🎤</span><span class="val"><strong>Hip Hop</strong> — 1970s Bronx NY, breaking/popping/locking, African American & Latino</span></div>
+      <div class="cheat-item"><span class="key b">🎷</span><span class="val"><strong>Jazz Dance</strong> — 17c African traditions → US 20c, improvisation, call-and-response</span></div>
+      <div class="cheat-item"><span class="key b">👟</span><span class="val"><strong>Tap</strong> — US 19c, African rhythm + Irish step, metal plates on shoes</span></div>
+      <div class="cheat-item"><span class="key b">🌺</span><span class="val"><strong>Folk</strong> — community heritage, rituals, festivals. Ex: Bharatanatyam, Samba, Hula</span></div>
+      <div class="cheat-item"><span class="key b">🍀</span><span class="val"><strong>Irish</strong> — stiff upper body, intricate footwork, Riverdance, pre-Christian roots</span></div>
+      <div class="cheat-item"><span class="key b">🌊</span><span class="val"><strong>Modern</strong> — early 20c reaction to ballet; Isadora Duncan, Martha Graham</span></div>
+      <div class="cheat-item"><span class="key b">🎶</span><span class="val"><strong>Swing</strong> — 1920s-30s US, Lindy Hop, Charleston, Jitterbug, Balboa</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================== PH HISTORY ============================== -->
+<div id="philippine" class="section">
+  <div class="cheat-grid">
+
+    <!-- Pre-Colonial Music -->
+    <div class="cheat-card phil">
+      <h3>🌴 Pre-Colonial Music</h3>
+      <div class="cheat-item"><span class="key">🎵</span><span class="val">Functional: rituals, agriculture, birth, courtship, death</span></div>
+      <div class="cheat-item"><span class="key">📜</span><span class="val">Epic chants: <strong>Darangen</strong> (Maranao) & <strong>Hudhud</strong> (Ifugao) — UNESCO</span></div>
+      <div class="cheat-item"><span class="key">🎤</span><span class="val">Largely vocal & improvisational; a cappella or simple accompaniment</span></div>
+      <div class="divider"></div>
+      <div style="font-size:0.72rem;color:var(--accent2);margin-bottom:0.4rem;font-weight:700;">SOFT Instruments (indoor/courtship)</div>
+      <span class="tag p">Kudyapi (2-string lute)</span><span class="tag p">Korlong (bamboo zither)</span><span class="tag p">Tolali (nose flute)</span><span class="tag p">Subing (jaw harp)</span>
+      <div class="divider"></div>
+      <div style="font-size:0.72rem;color:var(--accent3);margin-bottom:0.4rem;font-weight:700;">LOUD Instruments (ceremonies/war)</div>
+      <span class="tag b">Agong (gong)</span><span class="tag b">Drums</span><span class="tag b">Bamboo instruments</span>
+      <div class="divider"></div>
+      <div class="cheat-item"><span class="key">🏔</span><span class="val">N. Luzon/Cordillera: <strong>Gangsa</strong> (flat gongs)</span></div>
+      <div class="cheat-item"><span class="key">🌅</span><span class="val">Mindanao: <strong>Kulintang</strong> ensemble (gongs+drums+strings)</span></div>
+    </div>
+
+    <!-- Spanish Period -->
+    <div class="cheat-card phil">
+      <h3>⚔️ Spanish Period (1521–1898)</h3>
+      <div class="cheat-item"><span class="key">✝️</span><span class="val">Missionaries used Gregorian chant, polyphonic music, Western notation</span></div>
+      <div class="cheat-item"><span class="key">🎶</span><span class="val"><strong>Pasyon</strong> — Catholic teachings + indigenous music (liturgical)</span></div>
+      <div class="cheat-item"><span class="key">🎸</span><span class="val"><strong>Harana</strong> — courtship serenade with guitar</span></div>
+      <div class="cheat-item"><span class="key">💔</span><span class="val"><strong>Kundiman</strong> — slow, emotional; love/longing/patriotism</span></div>
+      <div class="cheat-item"><span class="key">🪕</span><span class="val"><strong>Rondalla</strong> — string ensemble (plucked instruments)</span></div>
+      <div class="cheat-item"><span class="key">🎭</span><span class="val"><strong>Zarzuela</strong> — Spanish-derived; sung + spoken scenes, 1–5 acts; arrived PH 1878</span></div>
+      <div class="cheat-item"><span class="key">💃</span><span class="val"><strong>Cariñosa & Pandanggo sa Ilaw</strong> — localized European dances</span></div>
+      <div class="cheat-item"><span class="key">🎵</span><span class="val"><strong>Kumintang</strong> — earlier style that influenced Kundiman</span></div>
+    </div>
+
+    <!-- American & Japanese -->
+    <div class="cheat-card phil">
+      <h3>🇺🇸 American Period (1898–1946)</h3>
+      <div class="cheat-item"><span class="key">🏫</span><span class="val">Music added to public school curriculum</span></div>
+      <div class="cheat-item"><span class="key">📻</span><span class="val">Radio, musical films, <strong>Bodabil</strong> (Filipino vaudeville)</span></div>
+      <div class="cheat-item"><span class="key">🥁</span><span class="val"><strong>Philippine Constabulary Band</strong> (Walter Loving) — 1904 St. Louis World's Fair</span></div>
+      <div class="cheat-item"><span class="key">🎓</span><span class="val">Conservatories established; <strong>Nicanor Abelardo & Francisco Santiago</strong> — nationalist composers</span></div>
+      <div class="cheat-item"><span class="key">🕺</span><span class="val">Ragtime, foxtrot, early jazz in dance halls & cabarets</span></div>
+      <div class="divider"></div>
+      <div style="font-size:0.72rem;color:var(--accent2);font-weight:700;">🇯🇵 Japanese Period (1941–1945)</div>
+      <div class="cheat-item"><span class="key">🚫</span><span class="val">American influences BANNED; Japanese songs broadcast & taught</span></div>
+      <div class="cheat-item"><span class="key">💣</span><span class="val">War devastation limited musical development; least lasting impact</span></div>
+      <div class="cheat-item"><span class="key">📢</span><span class="val">Music used mainly for propaganda/political influence</span></div>
+    </div>
+
+    <!-- Liberation & Martial Law -->
+    <div class="cheat-card phil">
+      <h3>🕊️ Liberation & New Society</h3>
+      <div style="font-size:0.72rem;color:var(--accent4);font-weight:700;margin-bottom:0.5rem;">POST-WAR LIBERATION (1946+)</div>
+      <div class="cheat-item"><span class="key">🇵🇭</span><span class="val">Nationalism & cultural consciousness; swing revival; bodabil</span></div>
+      <div class="cheat-item"><span class="key">🎸</span><span class="val">1950s-60s: samba → <strong>cumbachero bands</strong>; rock & roll, Elvis, The Beatles</span></div>
+      <div class="cheat-item"><span class="key">🏛</span><span class="val">More music schools; RA 4723 — promoted music education</span></div>
+      <div class="divider"></div>
+      <div style="font-size:0.72rem;color:var(--accent2);font-weight:700;margin-bottom:0.5rem;">MARCOS / NEW SOCIETY (1972–)</div>
+      <div class="cheat-item"><span class="key">📺</span><span class="val">Martial Law: strict media control BUT Imelda supported arts; built CCP</span></div>
+      <div class="cheat-item"><span class="key">✊</span><span class="val"><strong>Bayan Ko</strong> (José Corazón de Jesús) — protest/patriotism; Benigno Aquino funeral</span></div>
+      <div class="cheat-item"><span class="key">🎤</span><span class="val"><strong>Freddie Aguilar</strong> — "Anak" (international hit); <strong>Apo Hiking Society</strong></span></div>
+    </div>
+
+    <!-- Contemporary OPM -->
+    <div class="cheat-card phil">
+      <h3>🎵 Contemporary Philippine Music</h3>
+      <div class="cheat-item"><span class="key">📻</span><span class="val"><strong>Manila Sound</strong> (1970s) — <strong>Hotdog & VST & Co.</strong>; light pop-rock with Taglish</span></div>
+      <div class="cheat-item"><span class="key">🇵🇭</span><span class="val"><strong>OPM</strong> & <strong>Pinoy Rock</strong> — Filipino identity in songwriting; <strong>Ryan Cayabyab</strong></span></div>
+      <div class="cheat-item"><span class="key">🤘</span><span class="val"><strong>Juan de la Cruz Band</strong> — pioneered Pinoy rock</span></div>
+      <div class="cheat-item"><span class="key">🏆</span><span class="val">Metro Manila Popular Music Festival (Metro Pop), Himig Awards</span></div>
+      <div class="cheat-item"><span class="key">⭐</span><span class="val">1980s–2000s: Regine Velasquez, Gary Valenciano, Eraserheads, Rivermaya</span></div>
+      <div class="cheat-item"><span class="key">💬</span><span class="val">Social issues: <strong>Tatsulok</strong> (Bamboo) — inequality; <strong>Paraiso</strong> (Smokey Mountain) — environment</span></div>
+      <div class="cheat-item"><span class="key">🆕</span><span class="val">Recent: P-Pop, indie music, hip-hop communities; global recognition</span></div>
+    </div>
+
+    <!-- PH Dance History -->
+    <div class="cheat-card dance">
+      <h3>💃 Philippine Dance History</h3>
+      <div class="cheat-item"><span class="key b">🌴</span><span class="val"><strong>Pre-Colonial</strong>: Sagayan Dance (Maguindanao/Maranao, honors Prince Bantugan); Igorot nature-inspired dances; passed orally</span></div>
+      <div class="cheat-item"><span class="key b">🕌</span><span class="val"><strong>Islamic (Mindanao)</strong>: 12c; Singkil (Maranao court dance, bamboo poles, kulintang); elaborate costumes</span></div>
+      <div class="cheat-item"><span class="key b">⚔️</span><span class="val"><strong>Spanish</strong>: waltz, fandango, polka → localized → <strong>Maria Clara dances</strong> (from Noli Me Tangere character); Cariñosa</span></div>
+      <div class="cheat-item"><span class="key b">🌾</span><span class="val"><strong>Rural/Barrio</strong>: Pandanggo sa Ilaw (oil lamps, imitates fireflies); Sayaw sa Salakot; props = bamboo, candles, hats</span></div>
+      <div class="cheat-item"><span class="key b">🐦</span><span class="val"><strong>Tinikling</strong> — NATIONAL folk dance; from Leyte; mimics tikling bird; bamboo poles; symbolizes agility + harmony with nature</span></div>
+    </div>
+
+  </div>
+
+  <!-- Timeline -->
+  <div style="margin-top:2rem;">
+    <h2 style="font-family:'Syne',sans-serif; font-size:1.2rem; color:var(--accent2); margin-bottom:1.5rem;">📅 PH Music Timeline</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">PRE-COLONIAL</div><div class="tl-title">Indigenous Music</div><div class="tl-desc">Kudyapi, Kulintang, Gangsa. Oral tradition. Darangen (Maranao) + Hudhud (Ifugao) epics.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--accent2)"></div><div class="tl-year">1521–1898</div><div class="tl-title">Spanish Colonial</div><div class="tl-desc">Gregorian chant, Pasyon, Harana, Kundiman, Rondalla, Zarzuela. Christianity fused with indigenous music.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--accent3)"></div><div class="tl-year">1898–1946</div><div class="tl-title">American Period</div><div class="tl-desc">Jazz, blues, rock & roll. Bodabil. Philippine Constabulary Band (1904 World's Fair). Nicanor Abelardo + Francisco Santiago.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--accent4)"></div><div class="tl-year">1941–1945</div><div class="tl-title">Japanese Occupation</div><div class="tl-desc">American music banned. Japanese propaganda songs. Least musical development. Orchestras continued for state functions.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--accent)"></div><div class="tl-year">1946–1972</div><div class="tl-title">Liberation / Post-War</div><div class="tl-desc">Nationalism rises. Swing, Latin influences. Cumbachero bands. Rock & roll via Elvis + Beatles. RA 4723 passed.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--accent2)"></div><div class="tl-year">1972+</div><div class="tl-title">Marcos / New Society</div><div class="tl-desc">CCP established. Bayan Ko (protest). Freddie Aguilar's "Anak". Apo Hiking Society. Dual role: state tool + resistance voice.</div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--accent4)"></div><div class="tl-year">1970s–NOW</div><div class="tl-title">Contemporary OPM</div><div class="tl-desc">Manila Sound (Hotdog, VST). OPM + Pinoy Rock. Ryan Cayabyab. Juan de la Cruz Band. Eraserheads. Rivermaya. P-Pop.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== FLASHCARDS ============================== -->
+<div id="flashcards" class="section">
+  <div class="fc-controls">
+    <select id="fc-category" onchange="loadFlashcards()">
+      <option value="all">All Topics</option>
+      <option value="music">Music Origins & Types</option>
+      <option value="orchestra">Orchestra Instruments</option>
+      <option value="ph-music">Philippine Music</option>
+      <option value="dance">Dance Types & Elements</option>
+      <option value="ph-dance">Philippine Dance</option>
+    </select>
+    <button class="btn sec" onclick="shuffleCards()">🔀 Shuffle</button>
+    <span class="fc-counter" id="fc-counter">Card 1 of ?</span>
+  </div>
+  <div class="fc-wrapper">
+    <div class="fc" id="flashcard" onclick="flipCard()">
+      <div class="fc-front">
+        <div class="q-label">Click to flip · Tap to reveal answer</div>
+        <div class="q-text" id="fc-q">Loading...</div>
+      </div>
+      <div class="fc-back">
+        <div class="a-label">Answer</div>
+        <div class="a-text" id="fc-a">Loading...</div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="btn sec" onclick="prevCard()">← Prev</button>
+    <button class="btn" onclick="nextCard()">Next →</button>
+  </div>
+</div>
+
+<!-- ============================== MNEMONICS ============================== -->
+<div id="mnemonics" class="section">
+  <h2 style="font-family:'Syne',sans-serif; color:var(--accent); margin-bottom:1.5rem;">🧠 Memory Tricks — Memorize These!</h2>
+
+  <div class="mnem-card">
+    <h4>🎺 4 Orchestra Families</h4>
+    <div class="mnem-key">S-W-B-P → "Some Weird Band Plays"</div>
+    <div class="mnem-exp">Strings · Woodwinds · Brass · Percussion</div>
+    <p style="margin-top:0.5rem;">Their roles: <strong>Strings = Harmony, Woodwinds = Color, Brass = Power, Percussion = Rhythm</strong><br>→ "Harmony Colors Bring Power Rhythmically" (alternate)</p>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent2)">
+    <h4>🎵 Woodwind Instruments (low to high pitch)</h4>
+    <div class="mnem-key">B-O-C-F-P → "Buy Our Cool Flutes Please"</div>
+    <div class="mnem-exp">Bassoon (lowest) · Oboe · Clarinet · Flute · Piccolo (highest)</div>
+    <p style="margin-top:0.5rem;">Reed types: Bassoon=double, Oboe=double(sad), Clarinet=single, Flute=none, Piccolo=none (mimics birds 🐦)</p>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent3)">
+    <h4>🎻 String Family Size (small to big)</h4>
+    <div class="mnem-key">V-V-C-D → "Very Vibrant Cellos Dominate"</div>
+    <div class="mnem-exp">Violin (smallest, highest) · Viola (warmer) · Cello (bass, must sit) · Double Bass (biggest, lowest)</div>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent4)">
+    <h4>🎵 Symphony vs Concerto vs Sonata</h4>
+    <div class="mnem-key">Orchestra → One Soloist → One Solo</div>
+    <div class="mnem-exp">Symphony = full ORCHESTRA (all together) | Concerto = highlighted SOLOIST + orchestra | Sonata = solo/small group (most intimate)</div>
+    <p style="margin-top:0.5rem;">Size: Symphony > Concerto > Sonata. All follow <strong>sonata form</strong> structure.</p>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent)">
+    <h4>🇵🇭 PH Music Periods (Chronological)</h4>
+    <div class="mnem-key">Pre · Spain · America · Japan · Free · Marcos · OPM</div>
+    <div class="mnem-exp">"Pretty Smart Americans Just Free Many OPM fans"</div>
+    <p style="margin-top:0.5rem;">Dates: Pre-colonial → 1521 (Spain) → 1898 (America) → 1941 (Japan) → 1946 (Liberation) → 1972 (Martial Law) → 1970s+ (OPM)</p>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent2)">
+    <h4>🎸 Spanish Period Music Forms</h4>
+    <div class="mnem-key">H-K-R-Z-P → "Happy Kids Really Zone Properly"</div>
+    <div class="mnem-exp">Harana (serenade) · Kundiman (slow/patriotic) · Rondalla (string ensemble) · Zarzuela (sung+spoken drama) · Pasyon (liturgical)</div>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent3)">
+    <h4>💃 9 Elements of Dance</h4>
+    <div class="mnem-key">B-T-D-S-T-F-D-T-M-C-S</div>
+    <div class="mnem-exp">Body · Theme · Design · Space · Time · Force · Dynamics · Technique · Music · Costume/Props · Choreography · Scenery</div>
+    <p style="margin-top:0.5rem;">Remember: <strong>"Body Theme Designed in Space-Time with Forceful Dynamic Technique; Music + Costumes + Choreography + Scenery"</strong></p>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent4)">
+    <h4>🐦 Tinikling — Key Facts</h4>
+    <div class="mnem-key">National Folk Dance · Leyte · Tikling Bird · Bamboo Poles</div>
+    <div class="mnem-exp">Mimics tikling birds hopping over bamboo traps. Symbolizes AGILITY + COORDINATION + HARMONY WITH NATURE. Possibly originated from colonial punishment → transformed into art.</div>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent)">
+    <h4>🎤 Hip Hop Dance — 3 Main Styles</h4>
+    <div class="mnem-key">B-L-P → "Break, Lock, Pop"</div>
+    <div class="mnem-exp">Breaking (breakdance) · Locking · Popping</div>
+    <p style="margin-top:0.5rem;">Origin: 1970s, Bronx NYC. African American + Latino culture. Funk music & breakbeats. Also: Memphis Jookin', Turfing, Jerkin', Krumping.</p>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent2)">
+    <h4>🎶 Swing Dance — 4 Popular Styles</h4>
+    <div class="mnem-key">L-C-J-B → "Lindy Can Jitterbug Brilliantly"</div>
+    <div class="mnem-exp">Lindy Hop · Charleston · Jitterbug · Balboa</div>
+    <p style="margin-top:0.5rem;">1920s-30s USA. Developed alongside swing jazz. Big band music. Social dance in ballrooms.</p>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent3)">
+    <h4>🏔 Pre-Colonial Instruments by Region</h4>
+    <div class="mnem-key">North = Gangsa | South = Kulintang</div>
+    <div class="mnem-exp">Cordillera (N. Luzon) = flat gongs called GANGSA | Mindanao (Southern PH) = KULINTANG ensemble (gongs + drums + strings)</div>
+  </div>
+
+  <div class="mnem-card" style="border-color:var(--accent4)">
+    <h4>📅 Key Dates to Remember</h4>
+    <div class="mnem-key">40,000 · 1521 · 1878 · 1898 · 1904 · 1941 · 1946 · 1972</div>
+    <p style="margin-top:0.4rem;font-size:0.78rem;color:#ccc;">
+      <strong>40,000 BC</strong> — earliest instruments | <strong>1521</strong> — Spain arrives PH | <strong>1878</strong> — Zarzuela arrives PH | <strong>1898</strong> — American period | <strong>1904</strong> — PCB at St. Louis | <strong>1941</strong> — Japanese occupation | <strong>1946</strong> — Independence | <strong>1972</strong> — Martial Law
+    </p>
+  </div>
+</div>
+
+<!-- ============================== QUIZ ============================== -->
+<div id="quiz" class="section">
+  <div id="quiz-start" style="text-align:center; padding: 2rem 0;">
+    <h2 style="font-family:'Syne',sans-serif; font-size:1.5rem; color:var(--accent); margin-bottom:1rem;">📝 100-Item Quiz</h2>
+    <p style="color:var(--muted); font-size:0.85rem; margin-bottom:1.5rem;">Multiple choice · Instant feedback · Score tracked</p>
+    <button class="btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+  <div id="quiz-body" style="display:none;">
+    <div class="quiz-header">
+      <div style="font-size:0.8rem;color:var(--muted);" id="q-label">Question 1/100</div>
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="progress-bar" style="width:1%"></div></div>
+      <div class="quiz-score" id="score-display">Score: 0/0</div>
+    </div>
+    <div id="q-container"></div>
+    <div style="display:flex;gap:1rem;margin-top:1rem;" id="quiz-nav">
+      <button class="btn" id="next-btn" onclick="nextQuestion()" style="display:none;">Next Question →</button>
+    </div>
+  </div>
+  <div id="quiz-result" style="display:none;">
+    <div class="quiz-result">
+      <div class="result-score" id="final-score">0/100</div>
+      <div class="result-msg" id="result-msg">Loading...</div>
+      <div class="result-sub" id="result-sub"></div>
+      <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <button class="btn" onclick="restartQuiz()">🔄 Retake Quiz</button>
+        <button class="btn sec" onclick="show('cheatsheet', document.querySelector('nav button'))">📋 Review Cheat Sheet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== FLASHCARD DATA ==========
+const allCards = [
+  // Music Origins
+  {cat:'music', q:'How old is the earliest evidence of musical instruments?', a:'At least 40,000 years ago (archaeological evidence)'},
+  {cat:'music', q:'What was found in Slovenia in 1995 that may be an ancient flute?', a:'A perforated bear femur — its human origin is still debated'},
+  {cat:'music', q:'What did Charles Darwin propose about the origin of music?', a:'Music may have developed similarly to animal mating calls — a form of attraction or expression'},
+  {cat:'music', q:'What did the development of staff notation enable before the 16th century?', a:'Composers could record and communicate musical ideas with precision'},
+  {cat:'music', q:'When did the term "classical music" come into use?', a:'Early 19th century — to describe formal, complex, written art music distinct from popular/folk music'},
+  {cat:'music', q:'What role did music play in Ancient Greece?', a:'Essential to education; believed to cultivate both the mind and soul'},
+  {cat:'music', q:'What characterized music in Medieval Europe?', a:'Gregorian chant in religious life; secular traditions through traveling performers (troubadours)'},
+  {cat:'music', q:'Name composers from the Renaissance and Baroque period.', a:'Bach, Handel, Vivaldi — known for increasing musical complexity'},
+  {cat:'music', q:'Name Classical period composers and their emphasis.', a:'Haydn, Mozart, Beethoven — emphasis on balance and clarity'},
+  {cat:'music', q:'Name Romantic era composers and their emphasis.', a:'Chopin, Liszt, Tchaikovsky — emphasis on emotional expression'},
+  // Western Art Music
+  {cat:'music', q:'What is a Symphony?', a:'A large-scale composition for full orchestra with multiple movements varying in tempo, mood, and character'},
+  {cat:'music', q:'What does the Italian word "sonare" mean (root of Sonata)?', a:'"To sound" — as opposed to cantata ("sung" by voices)'},
+  {cat:'music', q:'What is a Sonata?', a:'A composition for solo instrument or small ensemble, typically 2–4 movements in related keys'},
+  {cat:'music', q:'What is a Concerto?', a:'A piece featuring a solo musician (or group) performing WITH an orchestra; orchestra accompanies and contrasts the soloist'},
+  {cat:'music', q:'What is an Opera?', a:'Musical genre combining music, singing, staging (and sometimes dance) to tell a story; originated in Italy, end of 16th century'},
+  {cat:'music', q:'What is Ballet music?', a:'Specialized orchestral composition created to accompany ballet performances; provides rhythmic foundation and emotional context'},
+  {cat:'music', q:'Key difference: Symphony vs Concerto vs Sonata?', a:'Symphony = full orchestra (all together) | Concerto = soloist + orchestra | Sonata = solo/small group (most intimate). All use sonata form.'},
+  // Folk & Popular
+  {cat:'music', q:'How does folk music differ from popular music?', a:'Folk: community-based, no named composer, passed down, no commercial purpose. Popular: sold commercially, rapid style changes, tied to named composers/performers.'},
+  {cat:'music', q:'Where did Jazz originate and when?', a:'Early 20th century in New Orleans, Louisiana — from African American traditions (blues, ragtime) + European elements'},
+  {cat:'music', q:'Where and when did Rap begin?', a:'Bronx, New York City, 1970s — part of hip-hop culture including DJing, graffiti, and breakdancing'},
+  {cat:'music', q:'When did R&B emerge and who developed it?', a:'Early to mid-1940s, primarily developed by Black Americans. Evolved into soul, funk, disco, hip-hop.'},
+  {cat:'music', q:'What distinguishes Country music\'s roots?', a:'Originated in rural US South/West; roots in English, Scots, Irish settlers\' ballads & folk songs; took off with radio in 1920s'},
+  // Orchestra
+  {cat:'orchestra', q:'What are the 4 orchestral instrument families?', a:'Strings, Woodwinds, Brass, Percussion (Memory: "Some Weird Band Plays")'},
+  {cat:'orchestra', q:'What role does each orchestral family play?', a:'Strings = Harmony | Woodwinds = Color | Brass = Power | Percussion = Rhythm'},
+  {cat:'orchestra', q:'How do woodwinds produce sound?', a:'Through vibration of the air column inside the tube; some have reeds (thin cane that vibrates when blown)'},
+  {cat:'orchestra', q:'Name the woodwinds from highest to lowest pitch.', a:'Piccolo (highest, mimics birds) → Flute (no reed) → Clarinet (single reed) → Oboe (double reed, sad tone) → Bassoon (lowest, double reed)'},
+  {cat:'orchestra', q:'Which woodwind has NO reed?', a:'Flute and Piccolo — both are blown across, not through a reed'},
+  {cat:'orchestra', q:'Which woodwinds use a double reed?', a:'Oboe (sad tone) and Bassoon (lowest pitched)'},
+  {cat:'orchestra', q:'How do string instruments make sound?', a:'Vibration of four strings — by plucking or bowing'},
+  {cat:'orchestra', q:'Name the string family from smallest to largest.', a:'Violin (smallest, highest) → Viola (warmer, lower) → Cello (bass, player sits) → Double Bass (largest, lowest)'},
+  {cat:'orchestra', q:'How do brass instruments produce sound?', a:'By buzzing/vibrating the lips while blowing into the mouthpiece; valves change the tone'},
+  {cat:'orchestra', q:'What determines pitch in brass instruments?', a:'The length of the tubing — longer = lower pitch'},
+  {cat:'orchestra', q:'What role do percussion instruments play?', a:'Provide rhythm and character to the orchestra; range from simple wooden blocks to tuned instruments'},
+  {cat:'orchestra', q:'What materials are percussion instruments made from?', a:'Naturally resonant materials: skin, wood, or metal — sound produced when struck'},
+  // PH Music
+  {cat:'ph-music', q:'Name two UNESCO-recognized Filipino epic chants.', a:'Darangen (Maranao people of Lake Lanao) and Hudhud (Ifugao people)'},
+  {cat:'ph-music', q:'What are "soft" instruments in pre-colonial Philippines?', a:'Kudyapi (2-string lute), Korlong (bamboo zither), Tolali (nose flute), Subing (jaw harp) — used indoors/courtship'},
+  {cat:'ph-music', q:'What are "loud" instruments in pre-colonial Philippines?', a:'Agong (gongs), drums, bamboo instruments — used for ceremonies, warfare, public gatherings'},
+  {cat:'ph-music', q:'What instrument is associated with the Cordillera region?', a:'Gangsa — flat gongs used in community rituals and dances'},
+  {cat:'ph-music', q:'What ensemble is central to Mindanao musical tradition?', a:'Kulintang — gongs, drums, and string instruments; reflects Southeast Asian influences'},
+  {cat:'ph-music', q:'How did Spanish missionaries use music during colonization?', a:'As a tool for evangelization — taught Gregorian chant, polyphonic music, Western notation, and European instruments'},
+  {cat:'ph-music', q:'What is the Pasyon?', a:'A liturgical musical form — fusion of Catholic teachings and indigenous musical styles; sung during Holy Week'},
+  {cat:'ph-music', q:'What is the Harana?', a:'A traditional courtship serenade where a man expresses love through song, usually accompanied by guitar'},
+  {cat:'ph-music', q:'What is Kundiman?', a:'A slow, emotional song genre that conveys love, longing, and later patriotism'},
+  {cat:'ph-music', q:'What is Rondalla?', a:'A string ensemble composed of plucked instruments; a prominent performance group in Filipino communities'},
+  {cat:'ph-music', q:'What is the Zarzuela?', a:'A Spanish-derived musical genre with alternating sung and spoken scenes; 1–5 acts; arrived in PH in 1878'},
+  {cat:'ph-music', q:'What is Bodabil?', a:'Filipino version of vaudeville — variety entertainment featuring singing, dancing, comedy, and theatrical acts; rose during the American period'},
+  {cat:'ph-music', q:'Who led the Philippine Constabulary Band and what was their achievement?', a:'Walter Loving led them; performed at the 1904 St. Louis World\'s Fair — international recognition for Filipino musicians'},
+  {cat:'ph-music', q:'Who are the nationalist composers of the American period?', a:'Nicanor Abelardo and Francisco Santiago — combined Western musical structures with Filipino themes and folk elements'},
+  {cat:'ph-music', q:'What happened to American music during the Japanese occupation?', a:'It was strictly banned; Japanese songs were broadcast on radio and taught in schools instead'},
+  {cat:'ph-music', q:'What is the Manila Sound?', a:'Distinctly Filipino popular music style from the 1970s — bands like Hotdog and VST & Co. combined light pop-rock with Taglish lyrics'},
+  {cat:'ph-music', q:'What does OPM stand for?', a:'Original Pilipino Music — emerged in the 1970s emphasizing Filipino creativity and identity'},
+  {cat:'ph-music', q:'Who popularized the protest song "Bayan Ko" during the Marcos era?', a:'It was written by José Corazón de Jesús and became prominent at Benigno Aquino Jr.\'s funeral'},
+  {cat:'ph-music', q:'What song made Freddie Aguilar internationally famous?', a:'"Anak" — symbolically represented the struggles of the Filipino people'},
+  {cat:'ph-music', q:'What was established to support the arts during the Marcos era?', a:'The Cultural Center of the Philippines (CCP), supported by Imelda Marcos'},
+  {cat:'ph-music', q:'What law promoted music education post-independence?', a:'Republic Act No. 4723'},
+  // Dance types
+  {cat:'dance', q:'Where and when did Ballet originate?', a:'Italian Renaissance (15th century), later developed in France and Russia'},
+  {cat:'dance', q:'What is "en pointe" in ballet?', a:'When female dancers perform on the tips of their toes — a defining ballet technique'},
+  {cat:'dance', q:'Name three Ballet teaching methods.', a:'Vaganova, Cecchetti, Bournonville, French School, Royal Academy, Balanchine (any three)'},
+  {cat:'dance', q:'Where did Ballroom dance originate?', a:'European royal courts, particularly France, around the late 16th century'},
+  {cat:'dance', q:'What are the two subgenres of Ballroom dance?', a:'Standard/Smooth (waltz, tango, foxtrot) and Latin/Rhythm (cha-cha, samba, pasodoble, bolero)'},
+  {cat:'dance', q:'What is Contemporary dance known for?', a:'Freedom of movement, creativity, individual interpretation; combines ballet + modern + jazz; developed mid-20th century'},
+  {cat:'dance', q:'Who were influential choreographers of Contemporary dance?', a:'Martha Graham and Merce Cunningham'},
+  {cat:'dance', q:'Where and when did Hip Hop dance originate?', a:'1970s in the Bronx, New York City and parts of California — African American and Latino cultural movements'},
+  {cat:'dance', q:'Name the three main Hip Hop dance styles.', a:'Breaking (breakdance), Locking, Popping'},
+  {cat:'dance', q:'Where did Jazz dance originate?', a:'Rooted in 17th century African traditions brought via the Atlantic slave trade; developed further in early 20th century African American communities'},
+  {cat:'dance', q:'Name early iconic Jazz dance styles.', a:'Charleston, Cakewalk, Swing, Lindy Hop, Shimmy'},
+  {cat:'dance', q:'How does Tap dance produce sound?', a:'Through metal plates (taps) attached to heels and toes of shoes — intricate footwork creates percussive rhythm'},
+  {cat:'dance', q:'Where did Tap dance originate?', a:'United States, 19th century — fusion of African rhythmic traditions and Irish step dance'},
+  {cat:'dance', q:'What is Irish dance characterized by?', a:'Stiff, straight upper body with rapid, precise leg/foot movements; intricate footwork; gained fame via Riverdance'},
+  {cat:'dance', q:'When and where did Modern dance emerge?', a:'Early 20th century in United States and Germany; pioneered by Isadora Duncan and Martha Graham — reaction against rigid ballet'},
+  {cat:'dance', q:'What are the popular Swing dance styles?', a:'Lindy Hop, Charleston, Jitterbug, Balboa — developed in 1920s-30s USA alongside swing jazz music'},
+  // Dance elements
+  {cat:'dance', q:'What is the "Body" element of dance?', a:'The basic component — how the body initiates movement; includes internal self-perceptions, emotions, imaginations, thoughts, and intentions expressed outwardly'},
+  {cat:'dance', q:'What does "Space" refer to as a dance element?', a:'The area/environment — direction, levels, pathways, and formations on stage; where and how a dancer moves'},
+  {cat:'dance', q:'What does "Time" refer to in dance?', a:'Rhythm, tempo, and duration of movements; includes clock time, sensed time, and event-sequence'},
+  {cat:'dance', q:'What does "Dynamics/Force" mean in dance?', a:'The energy and force of movement — strong, soft, sharp, or flowing'},
+  {cat:'dance', q:'What are Costume and Props used for in dance?', a:'To enhance the effect of the dance and reflect the customs, beliefs, and environment of the people'},
+  // PH Dance
+  {cat:'ph-dance', q:'What is the Sagayan dance and who created it?', a:'A dance created by the Maguindanao and Maranao communities to honor Prince Bantugan; features intricate footwork, sharp turns, and quick steps'},
+  {cat:'ph-dance', q:'What is the Singkil?', a:'A Maranao court dance from Lanao del Sur; precise footwork between clacking bamboo poles; ornate royal costuming; accompanied by kulintang'},
+  {cat:'ph-dance', q:'What are Maria Clara dances?', a:'Dances developed during the Spanish period — fusion of European dances (waltz, fandango, polka) with Filipino style; named after a character in Noli Me Tangere'},
+  {cat:'ph-dance', q:'What is Pandanggo sa Ilaw?', a:'A barrio/festive dance where dancers balance oil lamps to imitate fireflies; means "dance of lights"'},
+  {cat:'ph-dance', q:'What is the Tinikling and where did it originate?', a:'National folk dance of the Philippines; from Leyte Province; mimics the tikling bird hopping over bamboo traps; dancers step between moving bamboo poles'},
+  {cat:'ph-dance', q:'What does Tinikling symbolize?', a:'Agility, coordination, and harmony with nature'},
+  {cat:'ph-dance', q:'What is the Cariñosa?', a:'Philippine courtship dance shaped by Spanish influence; danced with a fan and handkerchief to lilting 3/4 music; teaches playful pursuit, modesty, and social grace'},
+  {cat:'ph-dance', q:'Why do Mindanao/Sulu Islamic dance traditions remain strong?', a:'They resisted Spanish colonization, preserving their religious and cultural dance traditions'},
+  {cat:'ph-dance', q:'What props are common in barrio/rural dances?', a:'Bamboo poles, candles, hats, benches'},
+  {cat:'ph-dance', q:'What does the Sayaw sa Salakot feature?', a:'Dancing with a salakot (traditional wide-brimmed hat made of rattan/reeds, worn by farmers) — hats embellished and enhance graceful movements'},
+];
+
+let fcCards = [...allCards];
+let fcIndex = 0;
+
+function loadFlashcards() {
+  const cat = document.getElementById('fc-category').value;
+  fcCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  fcIndex = 0;
+  showCard();
+}
+
+function showCard() {
+  const card = fcCards[fcIndex];
+  document.getElementById('fc-q').textContent = card.q;
+  document.getElementById('fc-a').textContent = card.a;
+  document.getElementById('fc-counter').textContent = `Card ${fcIndex + 1} of ${fcCards.length}`;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+
+function nextCard() {
+  fcIndex = (fcIndex + 1) % fcCards.length;
+  showCard();
+}
+
+function prevCard() {
+  fcIndex = (fcIndex - 1 + fcCards.length) % fcCards.length;
+  showCard();
+}
+
+function shuffleCards() {
+  for (let i = fcCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcCards[i], fcCards[j]] = [fcCards[j], fcCards[i]];
+  }
+  fcIndex = 0;
+  showCard();
+}
+
+// Load initial flashcards
+loadFlashcards();
+
+// ========== QUIZ DATA (100 questions) ==========
+const quizQuestions = [
+  {q:'How many years ago does archaeological evidence suggest humans first created musical instruments?',
+   opts:['10,000 years','40,000 years','100,000 years','5,000 years'],correct:1,
+   exp:'Archaeological evidence suggests humans were creating musical instruments at least 40,000 years ago.'},
+  {q:'Where was the perforated bear femur (possible ancient flute) discovered in 1995?',
+   opts:['Germany','France','Slovenia','Croatia'],correct:2,
+   exp:'It was found in Slovenia in 1995. Its human origin remains debated.'},
+  {q:'What did Charles Darwin propose about the origin of music?',
+   opts:['Music evolved from language','Music developed like animal mating calls','Music was invented for religious rituals','Music evolved from tool-making sounds'],correct:1,
+   exp:'Darwin proposed music may have developed similarly to animal mating calls, functioning as a form of attraction or expression.'},
+  {q:'When did the term "classical music" come into use?',
+   opts:['Late 16th century','Early 17th century','Early 19th century','Mid-20th century'],correct:2,
+   exp:'The term "classical music" came into use in the early 19th century to describe formal, complex, written art music.'},
+  {q:'In which ancient civilization was music considered essential to education and believed to cultivate mind and soul?',
+   opts:['Ancient Rome','Ancient Egypt','Ancient Greece','Ancient China'],correct:2,
+   exp:'In Ancient Greece, music was considered essential to education and believed to cultivate both the mind and soul.'},
+  {q:'A Symphony is written for:',
+   opts:['A solo instrument','A small ensemble','A full orchestra','A soloist with orchestra'],correct:2,
+   exp:'A Symphony is a large-scale composition written for a full orchestra, typically with multiple movements.'},
+  {q:'The Italian word "sonare" (root of Sonata) means:',
+   opts:['To sing','To sound','To play','To perform'],correct:1,
+   exp:'"Sonata" derives from the Italian verb "sonare" meaning "to sound" — as opposed to cantata ("sung" by voices).'},
+  {q:'What distinguishes a Concerto from a Symphony?',
+   opts:['Concerto has more movements','Concerto features a highlighted soloist with orchestra','Concerto is only for woodwinds','Concerto has no conductor'],correct:1,
+   exp:'A Concerto features one or more soloists performing with an orchestra, whereas a Symphony features the full orchestra without a highlighted soloist.'},
+  {q:'Opera originated in which country?',
+   opts:['France','Germany','Spain','Italy'],correct:3,
+   exp:'Opera originated in Italy towards the end of the 16th century.'},
+  {q:'Which composer is associated with Swan Lake ballet music?',
+   opts:['Mozart','Bach','Tchaikovsky','Beethoven'],correct:2,
+   exp:'Swan Lake is a famous ballet composed by Tchaikovsky.'},
+  {q:'Which is MOST intimate in scale: Symphony, Concerto, or Sonata?',
+   opts:['Symphony','Concerto','Sonata','They are equal in scale'],correct:2,
+   exp:'A Sonata is written for a solo instrument or small group — the most intimate of the three forms.'},
+  {q:'How does Folk music differ from Popular music?',
+   opts:['Folk music is sold commercially','Folk music has no named composer and is passed down through communities','Folk music changes style rapidly','Folk music is always instrumental'],correct:1,
+   exp:'Folk music is community-based, has no individual named composer, and is passed down through generations without commercial purpose.'},
+  {q:'Jazz originated in which US city in the early 20th century?',
+   opts:['Chicago','New York','New Orleans','Atlanta'],correct:2,
+   exp:'Jazz originated in early 20th century New Orleans, Louisiana — a city known for its cultural diversity.'},
+  {q:'Which music genre emerged in the Bronx, New York in the 1970s?',
+   opts:['Rock','R&B','Jazz','Rap/Hip-Hop'],correct:3,
+   exp:'Rap began in the Bronx, New York City in the 1970s as part of the broader hip-hop cultural movement.'},
+  {q:'R&B emerged primarily developed by whom in the 1940s?',
+   opts:['White Americans for European audiences','Black Americans for Black audiences','Latin Americans for Caribbean audiences','Asian Americans for Pacific audiences'],correct:1,
+   exp:'R&B emerged in the early to mid-1940s, primarily developed by Black Americans for Black audiences.'},
+  {q:'Country music originated in what region of the United States?',
+   opts:['Northern urban areas','Rural areas of the South and West','Coastal cities','The Midwest'],correct:1,
+   exp:'Country music originated in rural areas of the South and West in the early 20th century.'},
+  {q:'What memory device helps remember the 4 orchestral families?',
+   opts:['"Some Wild Beasts Play"','\"Some Weird Band Plays\"','"Sound With Brass Power"','"Strings Win Best Performance"'],correct:1,
+   exp:'"Some Weird Band Plays" → Strings, Woodwinds, Brass, Percussion'},
+  {q:'Which orchestral family ADDS HARMONY?',
+   opts:['Woodwinds','Brass','Percussion','Strings'],correct:3,
+   exp:'Strings add harmony. Woodwinds add color. Brass adds power. Percussion adds rhythm.'},
+  {q:'Which orchestral family ADDS POWER?',
+   opts:['Strings','Woodwinds','Brass','Percussion'],correct:2,
+   exp:'Brass adds power to the orchestra.'},
+  {q:'How do woodwind instruments produce sound?',
+   opts:['By buzzing lips','By vibration of the air column inside the tube','By striking with a mallet','By plucking strings'],correct:1,
+   exp:'Woodwinds produce sound through vibration of the air column inside the tube; some use reeds.'},
+  {q:'Which woodwind instrument has the HIGHEST pitch and mimics bird sounds?',
+   opts:['Flute','Clarinet','Piccolo','Oboe'],correct:2,
+   exp:'The Piccolo is the highest-pitched woodwind and mimics the sound of birds.'},
+  {q:'Which woodwind instrument has NO reed?',
+   opts:['Oboe','Clarinet','Bassoon','Flute'],correct:3,
+   exp:'The Flute has no reed — sound is produced by blowing across the mouthpiece. (Piccolo also has no reed.)'},
+  {q:'Which woodwind uses a SINGLE reed?',
+   opts:['Oboe','Bassoon','Clarinet','Piccolo'],correct:2,
+   exp:'The Clarinet uses a single reed and has an expressive tone.'},
+  {q:'Which woodwind has a DOUBLE REED and a "sad tone"?',
+   opts:['Clarinet','Flute','Bassoon','Oboe'],correct:3,
+   exp:'The Oboe has a double reed and is known for its sad-sounding tone.'},
+  {q:'The LARGEST and LOWEST-pitched string instrument is:',
+   opts:['Cello','Viola','Double Bass','Violin'],correct:2,
+   exp:'The Double Bass is the largest and lowest-pitched member of the string family.'},
+  {q:'The SMALLEST member of the string family is:',
+   opts:['Viola','Cello','Violin','Double Bass'],correct:2,
+   exp:'The Violin is the smallest member of the string family.'},
+  {q:'In brass instruments, what determines the pitch?',
+   opts:['Number of valves','Material of the instrument','Length of the tubing (longer = lower)','Size of the bell'],correct:2,
+   exp:'In brass instruments, the longer the tubing length, the lower the sound produced.'},
+  {q:'How do brass players produce sound?',
+   opts:['By blowing across a reed','By buzzing their lips while blowing into the mouthpiece','By pressing valves only','By striking the instrument'],correct:1,
+   exp:'Brass players buzz their lips while blowing into the mouthpiece; their lips act as reeds.'},
+  {q:'Percussion instruments are made of what materials?',
+   opts:['Only metal','Only wood','Naturally resonant materials: skin, wood, or metal','Only animal skin'],correct:2,
+   exp:'Percussion instruments are made of naturally resonant materials like skin, wood, or metal.'},
+  {q:'Filipino epic chants Darangen (Maranao) and Hudhud (Ifugao) are recognized by:',
+   opts:['NCCA','UNESCO','Philippines National Museum','ASEAN'],correct:1,
+   exp:'Both the Darangen and Hudhud are recognized by UNESCO as Intangible Cultural Heritage.'},
+  {q:'Which pre-colonial Filipino instrument is a two-stringed lute?',
+   opts:['Subing','Korlong','Tolali','Kudyapi'],correct:3,
+   exp:'The Kudyapi is a two-stringed lute used in intimate/courtship settings.'},
+  {q:'The Subing is classified as what type of instrument?',
+   opts:['Nose flute','Bamboo zither','Jaw harp','Two-stringed lute'],correct:2,
+   exp:'The Subing is a jaw harp — a "soft" instrument used in indoor or courtship settings.'},
+  {q:'What region of the Philippines used the Gangsa (flat gongs)?',
+   opts:['Mindanao / Southern Philippines','Visayas','Cordillera / Northern Luzon','Metro Manila'],correct:2,
+   exp:'The Gangsa (flat gongs) were used in the Cordillera region of Northern Luzon in community rituals and dances.'},
+  {q:'The Kulintang ensemble is associated with which region of the Philippines?',
+   opts:['Ilocos Region','Cordillera','Mindanao / Southern Philippines','Visayas'],correct:2,
+   exp:'The Kulintang ensemble (gongs, drums, string instruments) is central to Mindanao musical tradition.'},
+  {q:'How did Spanish missionaries use music in the Philippines?',
+   opts:['As entertainment only','As a tool for evangelization — taught chant and Western music','To preserve indigenous music','To train Filipino soldiers'],correct:1,
+   exp:'Spanish missionaries used music as a tool for evangelization, teaching Gregorian chant, polyphonic music, and Western notation.'},
+  {q:'The Pasyon is best described as:',
+   opts:['A courtship serenade','A string ensemble','A fusion of Catholic teachings and indigenous musical styles','A type of Spanish-derived opera'],correct:2,
+   exp:'The Pasyon is a liturgical form that emerged as a fusion of Catholic teachings and indigenous musical styles.'},
+  {q:'The Harana is traditionally performed for what purpose?',
+   opts:['Religious worship','War preparation','Courtship serenade (expressing love through song)','Agricultural rituals'],correct:2,
+   exp:'The Harana is a traditional courtship serenade where a man expresses love through song, usually accompanied by a guitar.'},
+  {q:'The Kundiman is characterized by:',
+   opts:['Fast-paced drumming','Slow, emotional quality conveying love, longing, and patriotism','Comedic theatrical acts','Plucked string ensemble'],correct:1,
+   exp:'Kundiman is known for its slow and emotional quality, conveying themes of love, longing, and later patriotism.'},
+  {q:'What is the Rondalla?',
+   opts:['A liturgical chant form','A string ensemble of plucked instruments','A type of opera','A dance with oil lamps'],correct:1,
+   exp:'The Rondalla is a string ensemble composed of plucked instruments — a prominent performance group in Filipino communities.'},
+  {q:'When did the Zarzuela first arrive in the Philippines?',
+   opts:['1521','1721','1878','1898'],correct:2,
+   exp:'Although the Zarzuela traces roots to Spanish colonizers in the 1600s, it was first recorded to arrive in the Philippines in 1878.'},
+  {q:'What is Bodabil?',
+   opts:['A string instrument ensemble','The Filipino version of vaudeville','A type of kundiman','A Spanish-derived musical drama'],correct:1,
+   exp:'Bodabil is the Filipino version of vaudeville, featuring singing, dancing, comedy, and theatrical acts during the American period.'},
+  {q:'Who led the Philippine Constabulary Band to international recognition?',
+   opts:['Francisco Santiago','Nicanor Abelardo','Walter Loving','Ryan Cayabyab'],correct:2,
+   exp:'Walter Loving led the Philippine Constabulary Band, which performed at the 1904 St. Louis World\'s Fair.'},
+  {q:'What nationalist style did Nicanor Abelardo and Francisco Santiago develop?',
+   opts:['Pure Western classical','Combined Western musical structures with Filipino themes and folk elements','Traditional indigenous music only','Jazz fusion with Filipino lyrics'],correct:1,
+   exp:'Abelardo and Santiago developed a "nationalist" style combining Western musical structures with Filipino themes and folk elements.'},
+  {q:'What happened to American music during the Japanese occupation of the Philippines?',
+   opts:['It became more popular','It was strictly banned','It was mixed with Japanese music','It was preserved underground'],correct:1,
+   exp:'American influences were strictly banned as part of Japan\'s effort to suppress Western culture during their occupation.'},
+  {q:'The Marcos period is characterized by music\'s DUAL ROLE. What were those two roles?',
+   opts:['Educational tool and entertainment','State-supported cultural project AND people\'s tool of protest/resistance','Religious devotion and patriotism','Folk preservation and modernization'],correct:1,
+   exp:'Music during the Marcos era was both supported by the state as a cultural project AND used by the people as a form of protest and resistance.'},
+  {q:'What protest song became a symbol of patriotism during the Marcos era?',
+   opts:['Anak','Tatsulok','Bayan Ko','Paraiso'],correct:2,
+   exp:'"Bayan Ko" (written by José Corazón de Jesús) became a symbol of patriotism and resistance, especially at Benigno Aquino Jr.\'s funeral.'},
+  {q:'Which artist\'s song "Anak" became an international hit symbolizing Filipino struggles?',
+   opts:['Ryan Cayabyab','Apo Hiking Society','Freddie Aguilar','Gary Valenciano'],correct:2,
+   exp:'Freddie Aguilar\'s "Anak" became an international hit symbolically representing the struggles of the Filipino people.'},
+  {q:'What institution did the Marcos government establish to support the arts?',
+   opts:['Philippine National Museum','Cultural Center of the Philippines (CCP)','National Commission for Culture and the Arts','Philippine Opera Company'],correct:1,
+   exp:'The Cultural Center of the Philippines (CCP) was established and funded to support artistic performances.'},
+  {q:'The Manila Sound emerged in what decade?',
+   opts:['1950s','1960s','1970s','1980s'],correct:2,
+   exp:'The Manila Sound emerged in the 1970s, with bands like Hotdog and VST & Co. combining light pop-rock with Taglish lyrics.'},
+  {q:'OPM stands for:',
+   opts:['Official Philippine Music','Original Pilipino Music','Outstanding Performing Music','Original Popular Music'],correct:1,
+   exp:'OPM stands for Original Pilipino Music — emphasizing Filipino creativity and identity in songwriting and performance.'},
+  {q:'Which band pioneered the Pinoy Rock movement?',
+   opts:['Hotdog','VST & Co.','Juan de la Cruz Band','Eraserheads'],correct:2,
+   exp:'The Juan de la Cruz Band pioneered the Pinoy rock movement in the Philippines.'},
+  {q:'The song "Tatsulok" (popularized by Bamboo) reflects what theme?',
+   opts:['Environmental conservation','Social inequality','Political resistance','Cultural heritage'],correct:1,
+   exp:'"Tatsulok" popularized by Bamboo reflects themes of social inequality.'},
+  {q:'Republic Act No. 4723 promoted what in the Philippines?',
+   opts:['Military music training','Music education and cultural development','OPM competitions','Philippine Constabulary Band'],correct:1,
+   exp:'Republic Act No. 4723 was passed to promote music education and cultural development in the post-war Philippines.'},
+  {q:'Ballet originated in which century?',
+   opts:['11th century','15th century (Italian Renaissance)','17th century','19th century'],correct:1,
+   exp:'Ballet originated during the Italian Renaissance in the 15th century, later developing in France and Russia.'},
+  {q:'"En pointe" in ballet refers to:',
+   opts:['A specific arm position','A jump technique','Performing on the tips of toes','A type of turn'],correct:2,
+   exp:'"En pointe" refers to when female dancers perform on the tips of their toes — a defining technique of classical ballet.'},
+  {q:'Ballroom dance originated in what country\'s royal courts?',
+   opts:['England','Spain','France','Germany'],correct:2,
+   exp:'Ballroom dance originated in European royal courts, particularly in France, around the late 16th century.'},
+  {q:'Which is a Standard/Smooth ballroom dance style?',
+   opts:['Cha-cha','Samba','Waltz','Pasodoble'],correct:2,
+   exp:'Waltz, tango, and foxtrot are Standard/Smooth ballroom styles. Cha-cha, samba, and pasodoble are Latin/Rhythm styles.'},
+  {q:'Contemporary dance developed in the mid-20th century as a reaction against what?',
+   opts:['Folk dance traditions','The rigidity of classical ballet','Jazz music influences','Religious dance forms'],correct:1,
+   exp:'Contemporary dance developed as a reaction against the rigidity of classical ballet, emphasizing freedom and improvisation.'},
+  {q:'Who are associated with popularizing Contemporary dance?',
+   opts:['Isadora Duncan and Martha Graham','Martha Graham and Merce Cunningham','Fred Astaire and Ginger Rogers','Mikhail Baryshnikov and Rudolf Nureyev'],correct:1,
+   exp:'Martha Graham and Merce Cunningham were influential choreographers of contemporary dance.'},
+  {q:'Hip Hop dance originated in what decade and place?',
+   opts:['1960s Los Angeles','1970s Bronx, New York','1980s Chicago','1950s New Orleans'],correct:1,
+   exp:'Hip hop dance originated in the 1970s in the Bronx, New York City and parts of California.'},
+  {q:'Name the THREE main Hip Hop dance styles.',
+   opts:['Waltz, Tango, Foxtrot','Breaking, Locking, Popping','Charleston, Jitterbug, Lindy Hop','Krumping, Tutting, Waacking'],correct:1,
+   exp:'The three main hip hop dance styles are Breaking (breakdance), Locking, and Popping.'},
+  {q:'Jazz dance is rooted in traditions from which continent?',
+   opts:['Europe','Asia','Africa','South America'],correct:2,
+   exp:'Jazz dance is a social and performance dance style rooted in African and African American traditions.'},
+  {q:'Tap dance developed from what two cultural influences?',
+   opts:['African rhythm + Irish step dance','Spanish flamenco + American folk dance','Caribbean music + European ballet','Indigenous American + West African traditions'],correct:0,
+   exp:'Tap dance developed through a fusion of African rhythmic traditions and Irish step dance.'},
+  {q:'Irish dance is characterized by:',
+   opts:['Fluid arm movements and improvisation','Stiff upper body with rapid, precise footwork','Partner lifts and spins','Barefoot performance on sandy surfaces'],correct:1,
+   exp:'Irish dance is characterized by a stiff, straight upper body with highly intricate and rapid footwork.'},
+  {q:'Swing dance developed alongside what type of music?',
+   opts:['Classical music','Blues music','Swing jazz / big band music','Rock and roll'],correct:2,
+   exp:'Swing dance developed alongside swing jazz music in the 1920s-1930s USA.'},
+  {q:'Which of these is a Swing dance style?',
+   opts:['Breaking','Lindy Hop','Popping','Krumping'],correct:1,
+   exp:'Lindy Hop is a popular swing dance style. Others include Charleston, Jitterbug, and Balboa.'},
+  {q:'Modern dance was pioneered by:',
+   opts:['George Balanchine and Rudolf Nureyev','Martha Graham and Merce Cunningham','Isadora Duncan and Martha Graham','Fred Astaire and Ginger Rogers'],correct:2,
+   exp:'Modern dance was pioneered by influential dancers like Isadora Duncan and Martha Graham in the early 20th century.'},
+  {q:'The "Body" element of dance refers to:',
+   opts:['Physical fitness of the dancer','The costumes and props used','How the body initiates movement, including internal emotions expressed outwardly','The stage design and scenery'],correct:2,
+   exp:'"Body" is the basic component of dance — how the body initiates movement and expresses internal emotions, thoughts, and intentions outwardly.'},
+  {q:'The "Space" element of dance includes:',
+   opts:['Rhythm and tempo','Direction, levels, pathways, and formations on stage','The musical score','Costume materials'],correct:1,
+   exp:'Space refers to where a dancer moves — including direction, levels, pathways, and formations on stage.'},
+  {q:'The "Dynamics" element of dance refers to:',
+   opts:['The duration of the performance','Force of movement — strong, soft, sharp, or flowing','The choreographer\'s design plan','Background music'],correct:1,
+   exp:'Dynamics refers to the force of movement — whether it is strong, soft, sharp, or flowing.'},
+  {q:'"Choreography" as an element of dance refers to:',
+   opts:['The setting and background of the performance','The forms and arrangement of dance movements','The musical accompaniment','The costume design'],correct:1,
+   exp:'Choreography refers to the forms and arrangement of dance movements.'},
+  {q:'Costumes and Props in dance serve to:',
+   opts:['Replace music entirely','Enhance the dance\'s effect and reflect cultural customs and beliefs','Restrict the dancer\'s movement','Create the choreography'],correct:1,
+   exp:'Costume and Props enhance the effect of the dance and are reflective of the customs, beliefs, and environment of the people.'},
+  {q:'The Sagayan Dance was created by which communities?',
+   opts:['Igorot and Ifugao','Maguindanao and Maranao','Cebuano and Ilocano','Tagalog and Kapampangan'],correct:1,
+   exp:'The Sagayan Dance was created by Maguindanao and Maranao communities to honor the legendary Prince Bantugan.'},
+  {q:'The Singkil is a court dance of which people?',
+   opts:['Igorot','Tagalog','Maranao (from Lanao del Sur)','Cebuano'],correct:2,
+   exp:'Singkil is a Maranao court dance from Lanao del Sur, featuring footwork between clacking bamboo poles and accompanied by kulintang music.'},
+  {q:'Maria Clara dances are named after a character from which Philippine novel?',
+   opts:['El Filibusterismo','Florante at Laura','Noli Me Tangere','Ibong Adarna'],correct:2,
+   exp:'Maria Clara dances are named after a character in José Rizal\'s "Noli Me Tangere."'},
+  {q:'Pandanggo sa Ilaw means:',
+   opts:['Dance of the flowers','Dance of lights','Dance of fire','Dance of the wind'],correct:1,
+   exp:'"Pandanggo sa Ilaw" means "dance of lights" — dancers balance oil lamps to imitate fireflies.'},
+  {q:'The Tinikling is the national folk dance of the Philippines. Where did it originate?',
+   opts:['Luzon Region','Metro Manila','Leyte Province (Visayas)','Mindanao'],correct:2,
+   exp:'Tinikling originated from Leyte Province and is considered the Philippines\' national folk dance.'},
+  {q:'What does the Tinikling dance mimic?',
+   opts:['A fisherman catching fish','The tikling bird hopping over bamboo traps','Rice farming movements','Warriors in battle'],correct:1,
+   exp:'Tinikling mimics the movement of the tikling bird hopping over trees, grass stems, or bamboo traps set by farmers.'},
+  {q:'What values does Tinikling symbolize?',
+   opts:['Courage and sacrifice','Agility, coordination, and harmony with nature','Love and courtship','Patriotism and resistance'],correct:1,
+   exp:'Tinikling symbolizes agility, coordination, and harmony with nature.'},
+  {q:'When was Islam introduced to the Philippines?',
+   opts:['8th century','12th century','15th century','17th century'],correct:1,
+   exp:'Islam was introduced to the Philippines in the 12th century through traders and seafarers.'},
+  {q:'What type of music accompanies the Singkil dance?',
+   opts:['Guitar-based rondalla','Gregorian chant','Kulintang (gong ensemble)','Marching band'],correct:2,
+   exp:'The Singkil is accompanied by kulintang gong ensemble music.'},
+  {q:'The Cariñosa is danced with what props?',
+   opts:['Oil lamps and scarves','Bamboo poles and hats','A fan and handkerchief','Swords and shields'],correct:2,
+   exp:'The Cariñosa is danced with a fan and handkerchief to lilting 3/4 music.'},
+  {q:'Dance is formally defined as:',
+   opts:['Physical exercise set to music','An art form involving rhythmic movement for expression, communication, or enjoyment','Competitive movement for athletic purposes','A set of memorized steps performed in sequence'],correct:1,
+   exp:'Dance involves the rhythmic movement of the body, often to music, for expression, communication, or enjoyment — characterized by expressiveness, not mere functional movement.'},
+  {q:'Historically, early societies used dance to honor what natural elements?',
+   opts:['Fire and water only','Mountains and rivers','The sun and rain — believing movements could invoke blessings','Animals for hunting success'],correct:2,
+   exp:'Early societies used dance to honor natural elements such as the sun and rain, believing movements could invoke blessings and sustain life.'},
+  {q:'Which of the following is a Filipino "soft" instrument used for courtship?',
+   opts:['Agong','Gangsa','Kudyapi','Kulintang'],correct:2,
+   exp:'The Kudyapi (two-stringed lute) is a "soft" instrument used in intimate settings like courtship.'},
+  {q:'Ballroom dance is also known as:',
+   opts:['Dancesport','Artdance','Rhythmsport','Performance dance'],correct:0,
+   exp:'Ballroom dance is also known as "dancesport," with competitions held worldwide.'},
+  {q:'Which dance style is known for the "Lindy Hop"?',
+   opts:['Ballroom','Jazz','Swing','Contemporary'],correct:2,
+   exp:'The Lindy Hop is one of the popular styles of Swing dance, which developed alongside swing jazz music in the 1920s-30s.'},
+  {q:'The Barrio tradition of Pandanggo sa Ilaw involves dancers doing what?',
+   opts:['Dancing with bamboo poles','Balancing oil lamps to imitate fireflies','Wearing elaborate kulintang costumes','Performing epic chants while dancing'],correct:1,
+   exp:'In Pandanggo sa Ilaw, dancers balance oil lamps (sometimes on head and hands) to imitate fireflies.'},
+  {q:'Pre-colonial Philippine music was largely what type?',
+   opts:['Written composition with notation','Instrumental only, no vocals','Vocal and improvisational — formal music theory not yet developed','Polyphonic choral music'],correct:2,
+   exp:'Music during the pre-colonial period was largely vocal and improvisational, as formal music theory was not yet developed.'},
+  {q:'During the American period, what new forms of entertainment emerged in the Philippines?',
+   opts:['Zarzuela and opera','Radio, musical films, and Bodabil (Filipino vaudeville)','Kulintang performances','Gregorian choir competitions'],correct:1,
+   exp:'During the American period, new entertainment forms emerged including radio, musical films, and Bodabil (the Filipino version of vaudeville).'},
+  {q:'What dances reflect the localization of European dances into Filipino culture during the Spanish period?',
+   opts:['Singkil and Sagayan','Tinikling and Pandanggo sa Ilaw','Cariñosa and Pandanggo sa Ilaw','Hudhud and Darangen'],correct:2,
+   exp:'The Cariñosa and Pandanggo sa Ilaw demonstrate the localization of European dances into Filipino culture during the Spanish colonial period.'},
+  {q:'Which Filipino composers developed a nationalist style combining Western structures with Filipino themes?',
+   opts:['Ryan Cayabyab and Freddie Aguilar','Nicanor Abelardo and Francisco Santiago','Walter Loving and José Corazón de Jesús','Bamboo and Gary Valenciano'],correct:1,
+   exp:'Nicanor Abelardo and Francisco Santiago developed a nationalist style by combining Western musical structures with Filipino themes and folk elements during the American period.'},
+  {q:'The Sayaw sa Salakot features what prop?',
+   opts:['Oil lamps','Bamboo poles','A salakot (traditional wide-brimmed hat)','Handkerchiefs and fans'],correct:2,
+   exp:'Sayaw sa Salakot features the salakot — a traditional wide-brimmed hat made of rattan or reeds, typically worn by farmers.'},
+  {q:'The Kumintang is significant because it:',
+   opts:['Was the first opera in the Philippines','Influenced the development of the Kundiman','Is the national anthem melody','Was introduced by Japanese colonizers'],correct:1,
+   exp:'The Kumintang is an earlier song style that influenced the development of the Kundiman.'},
+  {q:'In Contemporary dance, dancers typically perform:',
+   opts:['In formal court shoes','En pointe','Barefoot for greater freedom','In tap shoes'],correct:2,
+   exp:'Contemporary dancers typically perform barefoot to allow greater freedom of movement and expression.'},
+  {q:'Modern dance emphasizes:',
+   opts:['Strict posture and turned-out legs','Natural, grounded movement and emotional expression','Precision with musical scores','Formal partner connection and frame'],correct:1,
+   exp:'Modern dance focuses on freedom of movement, creativity, and emotional expression — emphasizing natural, grounded movement rather than strict posture.'},
+  {q:'Folk dance serves to:',
+   opts:['Compete in international sports events','Preserve cultural heritage and connect communities to their historical past','Generate commercial revenue for dancers','Replace traditional religious ceremonies'],correct:1,
+   exp:'Folk dance preserves traditions and connects present communities to their historical past, expressing shared identity through movement, music, and storytelling.'},
+  {q:'The Darangen is the epic chant of which Filipino people?',
+   opts:['Ifugao','Igorot','Maranao','Cebuano'],correct:2,
+   exp:'The Darangen is the epic chant of the Maranao people of Lake Lanao — recognized by UNESCO.'},
+  {q:'The Hudhud is the epic chant of which Filipino people?',
+   opts:['Maranao','Ifugao','Tagalog','Tausug'],correct:1,
+   exp:'The Hudhud chants belong to the Ifugao people — recognized by UNESCO as Intangible Cultural Heritage.'},
+  {q:'During the Marcos era, what did Imelda Marcos do to support the arts?',
+   opts:['Banned all foreign music','Sponsored artists and established the Cultural Center of the Philippines (CCP)','Created the Metro Pop festival only','Promoted traditional indigenous music only'],correct:1,
+   exp:'Imelda Marcos played a significant role by sponsoring artists and establishing/funding the Cultural Center of the Philippines (CCP).'},
+  {q:'Which is TRUE about music during the Japanese occupation of the Philippines?',
+   opts:['Filipino music flourished freely','American music was strictly banned; Japanese songs were used for propaganda','Japanese introduced jazz to the Philippines','This period saw the most musical innovation in Philippine history'],correct:1,
+   exp:'During the Japanese occupation, American influences were banned and Japanese songs were broadcast and taught as propaganda — leaving limited lasting musical contributions.'},
+];
+
+// Quiz state
+let currentQ = 0, score = 0, answered = 0, shuffledQuiz = [];
+
+function startQuiz() {
+  shuffledQuiz = [...quizQuestions];
+  // Shuffle
+  for (let i = shuffledQuiz.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledQuiz[i], shuffledQuiz[j]] = [shuffledQuiz[j], shuffledQuiz[i]];
+  }
+  currentQ = 0; score = 0; answered = 0;
+  document.getElementById('quiz-start').style.display = 'none';
+  document.getElementById('quiz-body').style.display = 'block';
+  document.getElementById('quiz-result').style.display = 'none';
+  showQuestion();
+}
+
+function showQuestion() {
+  if (currentQ >= shuffledQuiz.length) { showResult(); return; }
+  const q = shuffledQuiz[currentQ];
+  const pct = ((currentQ) / shuffledQuiz.length * 100).toFixed(1);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('q-label').textContent = `Question ${currentQ + 1} / ${shuffledQuiz.length}`;
+  document.getElementById('score-display').textContent = `Score: ${score}/${answered}`;
+
+  // Shuffle options
+  const opts = q.opts.map((o, i) => ({text: o, idx: i}));
+  const correctText = q.opts[q.correct];
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+  const newCorrect = opts.findIndex(o => o.text === correctText);
+
+  const html = `
+    <div class="q-card">
+      <div class="q-num">Question ${currentQ + 1}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-options" id="opts">
+        ${opts.map((o, i) => `<button class="q-opt" onclick="selectAnswer(${i}, ${newCorrect})">${o.text}</button>`).join('')}
+      </div>
+      <div id="q-feedback"></div>
+    </div>`;
+  document.getElementById('q-container').innerHTML = html;
+  document.getElementById('next-btn').style.display = 'none';
+}
+
+function selectAnswer(selected, correct) {
+  const btns = document.querySelectorAll('.q-opt');
+  btns.forEach(b => b.disabled = true);
+  btns[correct].classList.add('correct');
+  answered++;
+  const q = shuffledQuiz[currentQ];
+  const isCorrect = selected === correct;
+  if (isCorrect) { score++; btns[selected].classList.add('correct'); }
+  else { btns[selected].classList.add('wrong'); }
+  document.getElementById('q-feedback').innerHTML =
+    `<div class="q-feedback ${isCorrect ? 'ok' : 'no'}">
+      ${isCorrect ? '✅ Correct!' : '❌ Incorrect.'} ${q.exp}
+    </div>`;
+  document.getElementById('score-display').textContent = `Score: ${score}/${answered}`;
+  document.getElementById('next-btn').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  currentQ++;
+  showQuestion();
+}
+
+function showResult() {
+  document.getElementById('quiz-body').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('progress-bar').style.width = '100%';
+  const pct = Math.round((score / shuffledQuiz.length) * 100);
+  document.getElementById('final-score').textContent = `${score}/${shuffledQuiz.length}`;
+  let msg, sub;
+  if (pct >= 90) { msg = '🏆 Outstanding! You\'re ready!'; sub = 'Excellent work — you clearly know your stuff, bes!'; }
+  else if (pct >= 80) { msg = '🎉 Great job! Almost there!'; sub = 'Review the missed items then retry. You\'ve got this!'; }
+  else if (pct >= 70) { msg = '👍 Good effort! Keep pushing!'; sub = 'Go over the cheat sheet and flashcards again, then retry.'; }
+  else if (pct >= 60) { msg = '💪 Keep studying!'; sub = 'Review the Mnemonics section — it\'ll help a lot!'; }
+  else { msg = '📚 More review needed!'; sub = 'Don\'t panic! Go through all sections then retry the quiz.'; }
+  document.getElementById('result-msg').textContent = msg;
+  document.getElementById('result-sub').textContent = sub + ` (${pct}%)`;
+}
+
+function restartQuiz() {
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-start').style.display = 'block';
+}
+
+// ========== NAVIGATION ==========
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+</script>
+</body>
+</html>
